@@ -7,6 +7,7 @@ its own `urls.py` and get included here as it is implemented (Module 2+).
 """
 from django.conf import settings
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -31,6 +32,8 @@ api_v1_patterns = [
 ]
 
 urlpatterns = [
+    # Redirect root '/' directly to Swagger API docs
+    path("", lambda request: redirect("swagger-ui", permanent=False)),
     path("admin/", admin.site.urls),
     path("api/v1/", include(api_v1_patterns)),
     # OpenAPI schema + interactive documentation
