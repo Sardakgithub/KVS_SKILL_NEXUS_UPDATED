@@ -1,5 +1,5 @@
 """Production settings: hardened security, error tracking, static file compression."""
-from decouple import config
+from decouple import Csv, config
 from django.core.exceptions import ImproperlyConfigured
 
 from .base import *  # noqa: F401,F403
@@ -26,6 +26,36 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# --------------------------------------------------------------------------
+# Cross-Origin (CORS) & CSRF Configuration
+# --------------------------------------------------------------------------
+FRONTEND_URL = config(
+    "FRONTEND_URL",
+    default="https://kvs-skill-nexus-frontend.onrender.com",
+)
+BACKEND_URL = config(
+    "BACKEND_URL",
+    default="https://kvs-backend-os33.onrender.com",
+)
+
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS",
+    default=FRONTEND_URL,
+    cast=Csv(),
+)
+
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default=f"{FRONTEND_URL},{BACKEND_URL}",
+    cast=Csv(),
+)
+
+CORS_ALLOW_CREDENTIALS = True
+
+# Required for cross-site cookie transmission (Vite frontend <-> Django backend)
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
 
 # --------------------------------------------------------------------------
 # Error tracking

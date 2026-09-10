@@ -1,6 +1,15 @@
 import axios from 'axios'
 
-const BACKEND_URL = import.meta.env.VITE_API_BASE_URL || ''
+// Resolve backend URL: check env variables first, fallback to Render backend in prod or localhost in dev
+const RAW_BACKEND_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD
+    ? 'https://kvs-backend-os33.onrender.com'
+    : 'http://127.0.0.1:8000')
+
+// Strip any trailing slash if present
+const BACKEND_URL = RAW_BACKEND_URL.replace(/\/+$/, '')
 const API_BASE = `${BACKEND_URL}/api/v1`
 
 export const api = axios.create({
@@ -31,6 +40,14 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
       const refreshToken = localStorage.getItem('refresh_token')
+
+      if (!refreshToken) {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('user')
+        return Promise.reject(error.response?.data || error.message)
+      }
+
       try {
         const res = await axios.post(
           `${API_BASE}/auth/token/refresh/`,
@@ -85,7 +102,8 @@ export const adminApi = {
   getDashboard: () => api.get('/admin-panel/dashboard/'),
   getHealth: () => api.get('/admin-panel/health/'),
   getUsers: (params) => api.get('/admin-panel/users/', { params }),
-  toggleUserStatus: (userId, data) => api.patch(`/admin-panel/users/${userId}/status/`, data),
+  toggleUserStatus: (userId, data) =>
+    api.patch(`/admin-panel/users/${userId}/status/`, data),
   sendBroadcast: (data) => api.post('/admin-panel/broadcast/', data),
   getPendingMentors: () => api.get('/admin-panel/mentors/pending/'),
   getAllMentors: () => api.get('/admin-panel/mentors/all/'),
@@ -99,6 +117,5 @@ export const getMediaUrl = (path) => {
   if (!path) return ''
   if (path.startsWith('http://') || path.startsWith('https://')) return path
   const cleanPath = path.startsWith('/') ? path : `/${path}`
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
-  return `${baseUrl}${cleanPath}`
+  return `${BACKEND_URL}${cleanPath}`
 }

@@ -61,18 +61,18 @@ THIRD_PARTY_APPS = [
 # here as it is built. Module 1 only ships `apps.common`.
 LOCAL_APPS = [
     "apps.common",
-    "apps.accounts",        # Module 2
-    "apps.students",        # Module 3
-    "apps.mentors",         # Module 4
-    "apps.careers",         # Module 5
-    "apps.courses",         # Module 6
-    "apps.assessments",     # Module 7
-    "apps.resumes",         # Module 8
-    "apps.jobs",            # Module 9
-    "apps.certificates",    # Module 10
-    "apps.notifications",   # Module 11
-    "apps.admin_panel",     # Module 12
-    "apps.analytics",       # Module 13
+    "apps.accounts",         # Module 2
+    "apps.students",         # Module 3
+    "apps.mentors",          # Module 4
+    "apps.careers",          # Module 5
+    "apps.courses",          # Module 6
+    "apps.assessments",      # Module 7
+    "apps.resumes",          # Module 8
+    "apps.jobs",             # Module 9
+    "apps.certificates",     # Module 10
+    "apps.notifications",    # Module 11
+    "apps.admin_panel",      # Module 12
+    "apps.analytics",        # Module 13
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -247,10 +247,22 @@ SPECTACULAR_SETTINGS = {
 }
 
 # --------------------------------------------------------------------------
-# CORS
+# CORS & CSRF
 # --------------------------------------------------------------------------
-CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
+FRONTEND_URL = config("FRONTEND_URL", default="http://localhost:5173")
+
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS",
+    default="http://localhost:5173,http://localhost:3000",
+    cast=Csv(),
+)
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="http://localhost:5173,http://localhost:3000",
+    cast=Csv(),
+)
 
 # --------------------------------------------------------------------------
 # Cache (Redis)
@@ -291,8 +303,6 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="KVS Skill Nexus <no-reply@kvsskillnexus.com>")
-
-FRONTEND_URL = config("FRONTEND_URL", default="http://localhost:3000")
 
 # --------------------------------------------------------------------------
 # Logging
