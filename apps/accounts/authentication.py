@@ -3,6 +3,7 @@ Custom JWT Authentication class supporting both HTTP Bearer headers and HTTP-Onl
 """
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import AuthenticationFailed, InvalidToken
+from drf_spectacular.extensions import OpenApiAuthenticationExtension
 
 
 class JWTCookieAuthentication(JWTAuthentication):
@@ -28,3 +29,19 @@ class JWTCookieAuthentication(JWTAuthentication):
                 return None
 
         return None
+
+
+class JWTCookieAuthenticationScheme(OpenApiAuthenticationExtension):
+    """
+    Tells drf-spectacular how to document JWTCookieAuthentication in OpenAPI/Swagger.
+    """
+    target_class = JWTCookieAuthentication
+    name = "JWTCookieAuth"
+
+    def get_security_definition(self, auto_schema):
+        return {
+            "type": "apiKey",
+            "in": "cookie",
+            "name": "access_token",
+            "description": "JWT access token passed via HTTP-only cookie `access_token` or `Authorization: Bearer <token>` header",
+        }
