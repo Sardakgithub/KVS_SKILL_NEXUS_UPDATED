@@ -1,0 +1,2 @@
+-r requirements/production.txt
+dj-database-url==2.2.0

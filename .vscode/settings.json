@@ -1,0 +1,9 @@
+{
+  "python.defaultInterpreterPath": "C:\\Users\\sarda\\anaconda3\\python.exe",
+  "python.analysis.extraPaths": [
+    "C:\\Users\\sarda\\anaconda3\\Lib\\site-packages"
+  ],
+  "python.autoComplete.extraPaths": [
+    "C:\\Users\\sarda\\anaconda3\\Lib\\site-packages"
+  ]
+}

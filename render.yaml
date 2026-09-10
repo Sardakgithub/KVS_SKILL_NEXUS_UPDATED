@@ -1,0 +1,52 @@
+services:
+  # ---------------------------------------------------------------------------
+  # Django Backend Web Service
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: kvs-backend
+    env: python
+    region: singapore # or oregon, frankfurt, etc.
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com,localhost,127.0.0.1"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kvs-db
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://kvs-frontend.onrender.com"
+      - key: FRONTEND_URL
+        value: "https://kvs-frontend.onrender.com"
+
+  # ---------------------------------------------------------------------------
+  # React / Vite Frontend Static Site
+  # ---------------------------------------------------------------------------
+  - type: static
+    name: kvs-frontend
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: "https://kvs-backend.onrender.com"
+
+databases:
+  # ---------------------------------------------------------------------------
+  # Render PostgreSQL Database
+  # ---------------------------------------------------------------------------
+  - name: kvs-db
+    databaseName: kvs_skill_nexus
+    user: kvs_user
+    plan: free

@@ -1,0 +1,79 @@
+{"timestamp": "2026-08-10T16:54:01.255084+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-10T17:07:23.299664+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-10T17:09:16.748105+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-10T17:09:33.494843+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-10T17:10:16.501709+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-10T17:10:31.969863+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-08-10T17:11:04.120793+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-10T17:11:13.397646+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-15T07:50:51.161832+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=student@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-08-15T07:51:02.285071+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=student@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-08-15T07:51:34.385162+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=student@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-08-15T07:52:51.109160+00:00", "level": "INFO", "logger": "kvs.security", "message": "User registered: id=7 role=student", "module": "services", "line": 41}
+{"timestamp": "2026-08-15T07:53:18.837964+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=7", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T16:29:54.303309+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T16:42:07.806450+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-17T16:43:03.737257+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T16:44:17.009477+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-17T16:44:48.945837+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T16:47:40.799669+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-17T16:54:51.943649+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T17:02:34.045094+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-17T17:02:45.662875+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=8", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T17:07:07.658356+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-17T17:49:25.687431+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-17T17:51:00.091476+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-20T18:02:03.857099+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=alex.rivera@google.com", "module": "services", "line": 53}
+{"timestamp": "2026-08-20T18:04:07.846598+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-08-20T18:23:40.470069+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-23T15:42:10.062457+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-23T15:43:36.660998+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:29:57.629379+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:32:01.156879+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-28T13:32:15.560438+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:34:53.762531+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-28T13:35:08.420691+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:35:30.178573+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-28T13:35:55.754149+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:38:48.633073+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-28T13:39:00.708654+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=admin@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-08-28T13:39:30.337591+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-08-28T13:40:15.436420+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-08-28T13:41:30.816420+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-01T06:25:51.981537+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-01T06:58:59.307964+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-01T06:59:27.315815+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-01T06:59:58.367903+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-01T09:18:15.874765+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-01T09:18:21.611199+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-01T09:18:59.819482+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:18:38.228583+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=admin@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-09-10T13:18:58.237336+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=admin@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-09-10T13:20:35.394457+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=admin@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-09-10T13:23:22.680331+00:00", "level": "WARNING", "logger": "kvs.security", "message": "Failed login attempt for email=admin@kvs.com", "module": "services", "line": 53}
+{"timestamp": "2026-09-10T13:31:47.178636+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:32:08.505905+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:32:08.724261+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=3", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:33:52.689787+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:43:43.502288+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:44:28.306480+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:45:05.577105+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:57:42.358362+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:57:43.595435+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:57:44.664586+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T13:57:44.672539+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-10T13:57:45.821543+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:05:35.219536+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:05:35.796493+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:05:36.409964+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:05:36.414998+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-10T14:05:36.991030+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:21:02.085408+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-10T14:22:16.377115+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:39:57.201418+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-10T14:40:21.234929+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:43:25.586258+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:43:26.734541+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:43:27.840965+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-10T14:43:27.849830+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
+{"timestamp": "2026-09-10T14:43:28.977216+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
