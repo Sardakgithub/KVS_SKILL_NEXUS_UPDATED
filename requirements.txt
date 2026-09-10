@@ -1,2 +1,3 @@
 -r requirements/production.txt
 dj-database-url==2.2.0
+Pillow>=10.2.0
