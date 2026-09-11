@@ -330,7 +330,7 @@ export default function StudentProfile() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'flex-end' }}>
+          <div className="btn-row" style={{ gap: '10px' }}>
             {/* Interactive Quick Status Selector Badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <select
@@ -415,7 +415,7 @@ export default function StudentProfile() {
       )}
 
       {/* Profile Navigation Tabs */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
+      <div className="tab-row" style={{ marginBottom: '20px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
         <button
           type="button"
           className="btn-secondary"

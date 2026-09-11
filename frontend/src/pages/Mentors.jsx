@@ -78,7 +78,7 @@ export const Mentors = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="header-row" style={{ justifyContent: 'space-between' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Users color="var(--accent-violet)" size={24} /> 1-on-1 Industry Mentorship
@@ -97,7 +97,7 @@ export const Mentors = () => {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
+      <div className="tab-row" style={{ borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
         <button
           onClick={() => setActiveTab('explore')}
           style={{

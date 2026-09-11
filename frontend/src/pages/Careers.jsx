@@ -143,7 +143,7 @@ export const Careers = () => {
   if (loading) return <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Loading Career Paths...</div>
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '24px' }}>
+    <div className="responsive-grid-2col">
       {/* Career Paths List Sidebar */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>

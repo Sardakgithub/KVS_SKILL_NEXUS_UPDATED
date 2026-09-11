@@ -137,7 +137,7 @@ export const Assessments = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Top Banner Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="header-row" style={{ justifyContent: 'space-between' }}>
         <div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 800 }}>Skill & Coding Assessments</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4px' }}>
@@ -154,7 +154,7 @@ export const Assessments = () => {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
+      <div className="tab-row" style={{ borderBottom: '1px solid var(--border-glass)', paddingBottom: '12px' }}>
         <button
           onClick={() => setActiveTab('assigned')}
           style={{

@@ -207,7 +207,7 @@ export const ResumeBuilder = () => {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <div className="btn-row" style={{ alignItems: 'center' }}>
           <button
             onClick={() => window.history.back()}
             className="btn btn-secondary"

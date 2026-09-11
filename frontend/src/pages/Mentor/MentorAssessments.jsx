@@ -289,7 +289,7 @@ export const MentorAssessments = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header Banner */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="header-row" style={{ justifyContent: 'space-between' }}>
         <div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 800 }}>Mentor Assessment Hub</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4px' }}>
@@ -447,9 +447,9 @@ export const MentorAssessments = () => {
 
               {/* Question Bank Builder */}
               <div style={{ marginTop: '16px', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div className="header-row" style={{ justifyContent: 'space-between', marginBottom: '16px' }}>
                   <h4 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Question Bank ({formData.questions.length})</h4>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className="btn-row" style={{ gap: '8px' }}>
                     <button onClick={() => handleAddQuestion('mcq')} className="btn-secondary" style={{ fontSize: '0.8rem' }}>+ MCQ</button>
                     <button onClick={() => handleAddQuestion('multi_select')} className="btn-secondary" style={{ fontSize: '0.8rem' }}>+ Multi-Select</button>
                     <button onClick={() => handleAddQuestion('coding')} className="btn-secondary" style={{ fontSize: '0.8rem' }}>+ Coding Test</button>

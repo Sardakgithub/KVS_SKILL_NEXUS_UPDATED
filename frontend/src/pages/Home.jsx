@@ -115,7 +115,7 @@ export function Home() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-dark)', color: 'var(--text-main)', overflowX: 'hidden' }}>
       {/* Public Header Navigation */}
-      <header className="glass-panel" style={{
+      <header className="glass-panel header-row" style={{
         position: 'sticky', top: '16px', zIndex: 100, margin: '16px 24px',
         padding: '14px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         borderRadius: 'var(--radius-xl)'
@@ -125,7 +125,7 @@ export function Home() {
         </Link>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div className="btn-row" style={{ alignItems: 'center' }}>
           {user ? (
             <Link to="/dashboard" className="btn-primary" style={{ padding: '10px 20px' }}>
               Go to Dashboard <ArrowRight size={16} />
@@ -158,7 +158,7 @@ export function Home() {
           Discover structured career roadmaps, learn in-demand technical skills, connect with expert mentors from top tech companies, build ATS-friendly resumes, and land internships & jobs—all from one platform.
         </p>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '60px' }}>
+        <div className="btn-row btn-row-mobile-stack" style={{ justifyContent: 'center', marginBottom: '60px' }}>
           {user ? (
             <Link to="/dashboard" className="btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
               Launch Dashboard <ArrowRight size={18} />

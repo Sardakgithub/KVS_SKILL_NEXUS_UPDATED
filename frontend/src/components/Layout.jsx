@@ -5,7 +5,7 @@ import Logo from './Logo'
 import {
   LayoutDashboard, Compass, BookOpen, Award, FileText,
   Briefcase, Users, Bell, LogOut, Settings,
-  Shield, BarChart2, CheckSquare, UserCheck, ArrowLeft
+  Shield, BarChart2, CheckSquare, UserCheck, ArrowLeft, Menu, X
 } from 'lucide-react'
 
 export const Layout = ({ children }) => {
@@ -13,6 +13,7 @@ export const Layout = ({ children }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [unreadCount, setUnreadCount] = useState(3)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   const handleLogout = async () => {
     await logout()
@@ -51,28 +52,34 @@ export const Layout = ({ children }) => {
   const navItems = role === 'admin' ? adminNav : (role === 'mentor' ? mentorNav : studentNav)
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div className="app-container">
+      {/* Backdrop for Mobile Drawer */}
+      {isMobileOpen && (
+        <div
+          className="mobile-overlay"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
       {/* Glass Sidebar */}
       <aside
-        className="glass-panel"
-        style={{
-          width: '260px',
-          padding: '24px 16px',
-          margin: '16px',
-          display: 'flex',
-          flexDirection: 'column',
-          justify: 'space-between',
-          borderRadius: 'var(--radius-xl)',
-          position: 'sticky',
-          top: '16px',
-          height: 'calc(100vh - 32px)',
-        }}
+        className={`glass-panel app-sidebar ${isMobileOpen ? 'mobile-open' : ''}`}
       >
         <div>
-          {/* Logo */}
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', padding: '8px 8px', marginBottom: '28px' }}>
-            <Logo size="medium" />
-          </Link>
+          {/* Logo & Mobile Close */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+            <Link to="/" onClick={() => setIsMobileOpen(false)} style={{ display: 'flex', alignItems: 'center', padding: '4px' }}>
+              <Logo size="medium" />
+            </Link>
+            <button
+              onClick={() => setIsMobileOpen(false)}
+              className="btn-secondary"
+              style={{ padding: '6px', borderRadius: '50%', display: isMobileOpen ? 'flex' : 'none' }}
+              aria-label="Close Navigation Menu"
+            >
+              <X size={18} />
+            </button>
+          </div>
 
           {/* Navigation Links */}
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -83,6 +90,7 @@ export const Layout = ({ children }) => {
                 <Link
                   key={item.path}
                   to={item.path}
+                  onClick={() => setIsMobileOpen(false)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -106,7 +114,7 @@ export const Layout = ({ children }) => {
         </div>
 
         {/* User Card & Logout */}
-        <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
+        <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px', marginTop: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 12px', marginBottom: '12px' }}>
             <div style={{
               width: '36px',
@@ -156,24 +164,34 @@ export const Layout = ({ children }) => {
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, padding: '24px 32px 32px 16px', overflowY: 'auto' }}>
+      <main className="app-main">
         {/* Top Header */}
         <header
-          className="glass-panel"
+          className="glass-panel app-header"
           style={{
             padding: '16px 24px',
-            marginBottom: '28px',
+            marginBottom: '24px',
             borderRadius: 'var(--radius-lg)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justify: 'space-between',
           }}
         >
-          <div>
-            <h1 style={{ fontSize: '1.25rem', fontWeight: 700 }}>
-              Welcome back, <span className="gradient-text">{user?.first_name || 'Explorer'}</span> 👋
-            </h1>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Empower your career with AI-driven learning paths and expert mentorship.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="mobile-menu-btn"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu size={20} /> Navigation
+            </button>
+
+            <div>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 700 }}>
+                Welcome back, <span className="gradient-text">{user?.first_name || 'Explorer'}</span> 👋
+              </h1>
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Empower your career with AI-driven learning paths and expert mentorship.</p>
+            </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
