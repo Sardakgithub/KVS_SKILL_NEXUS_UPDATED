@@ -85,7 +85,10 @@ export const Login = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '8px', color: 'var(--text-muted)' }}>Password</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>Password</label>
+              <Link to="/forgot-password" style={{ fontSize: '0.82rem', color: 'var(--accent-violet)', fontWeight: 500 }}>Forgot Password?</Link>
+            </div>
             <div style={{ position: 'relative' }}>
               <input
                 type="password"
@@ -99,6 +102,7 @@ export const Login = () => {
               <Lock size={18} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
           </div>
+
 
           <button
             type="submit"

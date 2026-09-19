@@ -23,8 +23,9 @@ from apps.mentors.serializers import MentorProfileSerializer
 @extend_schema(tags=["Admin Panel"])
 class AdminDashboardView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = AdminDashboardSummarySerializer
 
-    @extend_schema(summary="Get system-wide admin metrics summary")
+    @extend_schema(summary="Get system-wide admin metrics summary", responses={200: AdminDashboardSummarySerializer})
     def get(self, request):
         metrics = services.get_admin_dashboard_metrics()
         return APIResponse.success(data=AdminDashboardSummarySerializer(metrics).data)
@@ -33,8 +34,9 @@ class AdminDashboardView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class SystemHealthView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = SystemHealthSerializer
 
-    @extend_schema(summary="Get system operational health status")
+    @extend_schema(summary="Get system operational health status", responses={200: SystemHealthSerializer})
     def get(self, request):
         health_data = services.get_system_health()
         return APIResponse.success(data=SystemHealthSerializer(health_data).data)
@@ -43,8 +45,9 @@ class SystemHealthView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class PendingMentorApprovalsView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = MentorProfileSerializer
 
-    @extend_schema(summary="List mentors pending admin approval")
+    @extend_schema(summary="List mentors pending admin approval", responses={200: MentorProfileSerializer(many=True)})
     def get(self, request):
         pending = MentorProfile.objects.filter(is_approved=False).select_related("user")
         paginator = StandardResultsPagination()
@@ -55,8 +58,9 @@ class PendingMentorApprovalsView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class MentorApprovalActionView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = MentorApprovalActionSerializer
 
-    @extend_schema(summary="Approve or reject a mentor application", request=MentorApprovalActionSerializer)
+    @extend_schema(summary="Approve or reject a mentor application", request=MentorApprovalActionSerializer, responses={200: MentorProfileSerializer})
     def post(self, request, mentor_id):
         serializer = MentorApprovalActionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -75,8 +79,9 @@ class MentorApprovalActionView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class AdminMentorListView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = MentorProfileSerializer
 
-    @extend_schema(summary="List all mentors (approved and pending)")
+    @extend_schema(summary="List all mentors (approved and pending)", responses={200: MentorProfileSerializer(many=True)})
     def get(self, request):
         mentors = MentorProfile.objects.all().select_related("user")
         paginator = StandardResultsPagination()
@@ -87,8 +92,9 @@ class AdminMentorListView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class AdminCreateMentorView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = AdminCreateMentorSerializer
 
-    @extend_schema(summary="Create a new mentor account from Admin UI", request=AdminCreateMentorSerializer)
+    @extend_schema(summary="Create a new mentor account from Admin UI", request=AdminCreateMentorSerializer, responses={201: MentorProfileSerializer})
     def post(self, request):
         serializer = AdminCreateMentorSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -103,7 +109,7 @@ class AdminCreateMentorView(APIView):
 class AdminDeleteMentorView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
 
-    @extend_schema(summary="Delete a mentor account and profile")
+    @extend_schema(summary="Delete a mentor account and profile", responses={200: None})
     def delete(self, request, mentor_id):
         services.delete_mentor_by_admin(mentor_id)
         return APIResponse.success(message="Mentor account successfully deleted.")
@@ -112,8 +118,9 @@ class AdminDeleteMentorView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class AdminUserListView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = UserSerializer
 
-    @extend_schema(summary="List all users with search, role filter, and status filter")
+    @extend_schema(summary="List all users with search, role filter, and status filter", responses={200: UserSerializer(many=True)})
     def get(self, request):
         query = request.query_params.get("search")
         role = request.query_params.get("role")
@@ -131,8 +138,9 @@ class AdminUserListView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class AdminUserStatusToggleView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = UserStatusToggleSerializer
 
-    @extend_schema(summary="Toggle user active status or email verification", request=UserStatusToggleSerializer)
+    @extend_schema(summary="Toggle user active status or email verification", request=UserStatusToggleSerializer, responses={200: UserSerializer})
     def patch(self, request, user_id):
         serializer = UserStatusToggleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -150,8 +158,9 @@ class AdminUserStatusToggleView(APIView):
 @extend_schema(tags=["Admin Panel"])
 class AdminBroadcastView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
+    serializer_class = BroadcastNotificationSerializer
 
-    @extend_schema(summary="Send broadcast notification to users", request=BroadcastNotificationSerializer)
+    @extend_schema(summary="Send broadcast notification to users", request=BroadcastNotificationSerializer, responses={200: None})
     def post(self, request):
         serializer = BroadcastNotificationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -163,5 +172,6 @@ class AdminBroadcastView(APIView):
         return APIResponse.success(
             message=f"Broadcast notification dispatched successfully to {count} users."
         )
+
 
 

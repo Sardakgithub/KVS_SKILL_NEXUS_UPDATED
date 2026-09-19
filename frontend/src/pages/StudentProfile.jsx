@@ -269,7 +269,8 @@ export default function StudentProfile() {
     return (
       <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)' }}>
         <Trophy style={{ width: '32px', height: '32px', animation: 'spin 2s linear infinite' }} />
-        <p style={{ marginTop: '16px' }}>Loading LinkedIn/Naukri profile...</p>
+        <p style={{ marginTop: '16px' }}>Loading profile...</p>
+
       </div>
     )
   }

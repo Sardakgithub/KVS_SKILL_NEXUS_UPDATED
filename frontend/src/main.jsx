@@ -12,6 +12,8 @@ import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { Login } from './pages/Auth/Login'
 import { Register } from './pages/Auth/Register'
+import { ForgotPassword } from './pages/Auth/ForgotPassword'
+
 
 // Student Pages
 import { StudentDashboard } from './pages/Dashboard/StudentDashboard'
@@ -61,6 +63,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
 
           <Route
             path="/dashboard"

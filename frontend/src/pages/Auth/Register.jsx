@@ -44,7 +44,28 @@ export const Register = () => {
         setTimeout(() => navigate('/login'), 2000)
       }
     } catch (err) {
-      setError(err.message || 'Registration failed')
+      let msg = 'Registration failed'
+      if (typeof err === 'string') {
+        msg = err
+      } else if (err?.errors) {
+        if (typeof err.errors === 'string') {
+          msg = err.errors
+        } else if (typeof err.errors === 'object') {
+          const list = []
+          for (const key in err.errors) {
+            const val = err.errors[key]
+            if (Array.isArray(val)) list.push(...val)
+            else if (typeof val === 'string') list.push(val)
+          }
+          if (list.length > 0) msg = list.join(' ')
+        }
+      } else if (err?.message && err.message !== 'Validation failed') {
+        msg = err.message
+      }
+      if (msg.toLowerCase().includes('already exists')) {
+        msg = 'Account Already exists'
+      }
+      setError(msg)
     } finally {
       setLoading(false)
     }
@@ -144,10 +165,6 @@ export const Register = () => {
             />
           </div>
 
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '4px' }}>
-            Note: Public registration creates a Student / Learner account. Industry Mentors are onboarded directly by the Platform Admin.
-          </p>
-
           <div>
             <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '6px', color: 'var(--text-muted)' }}>Password</label>
             <input
@@ -161,6 +178,7 @@ export const Register = () => {
               onChange={handleChange}
             />
           </div>
+
 
           <div>
             <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '6px', color: 'var(--text-muted)' }}>Confirm Password</label>

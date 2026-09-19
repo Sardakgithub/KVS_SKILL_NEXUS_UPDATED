@@ -23,6 +23,10 @@ logger = logging.getLogger("kvs")
 security_logger = logging.getLogger("kvs.security")
 
 
+import random
+from django.core.mail import send_mail
+from apps.accounts.models import PasswordResetOTP
+
 def register_user(validated_data):
     """Create a new user account and trigger verification email."""
     with transaction.atomic():
@@ -34,9 +38,12 @@ def register_user(validated_data):
             role=validated_data.get("role", "student"),
         )
 
-    # Send verification email asynchronously
-    from apps.accounts.tasks import send_verification_email
-    send_verification_email.delay(user.id)
+    # Send verification email asynchronously safely
+    try:
+        from apps.accounts.tasks import send_verification_email
+        send_verification_email.delay(user.id)
+    except Exception as exc:
+        logger.warning("Could not enqueue verification email: %s", exc)
 
     security_logger.info("User registered: id=%s role=%s", user.id, user.role)
     return user
@@ -103,34 +110,101 @@ def verify_email(token):
     return user
 
 
-def forgot_password(email):
-    """Send password reset email if the user exists. Always returns success
-    to prevent email enumeration."""
+def send_password_reset_otp(email):
+    """Generate 6-digit OTP and send to user's email."""
     try:
         user = User.objects.get(email__iexact=email, is_active=True)
-        from apps.accounts.tasks import send_password_reset_email
-        send_password_reset_email.delay(user.id)
-        security_logger.info("Password reset requested for user id=%s", user.id)
     except User.DoesNotExist:
-        # Don't reveal whether the email exists
-        pass
+        raise ApplicationError("User with this email address does not exist.", status_code=404)
 
+    # Generate 6-digit random OTP
+    otp_code = f"{random.randint(100000, 999999)}"
 
-def reset_password(token, new_password):
-    """Reset user password using the signed token."""
-    user_id = verify_password_reset_token(token)
-    if not user_id:
-        raise ApplicationError("Invalid or expired reset link.", status_code=400)
+    # Invalidate previous OTPs for this email
+    PasswordResetOTP.objects.filter(email__iexact=email).delete()
+
+    PasswordResetOTP.objects.create(
+        email=user.email,
+        otp=otp_code,
+        is_verified=False,
+    )
+
+    # Send email
+    subject = "Password Reset OTP - KVS Skill Nexus"
+    message = f"Hi {user.first_name},\n\nYour OTP for resetting your password is: {otp_code}\n\nThis OTP is valid for 15 minutes. If you did not request a password reset, please ignore this email.\n\nBest regards,\nKVS Skill Nexus Team"
 
     try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:
-        raise ResourceNotFoundError("User not found.")
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+    except Exception as e:
+        logger.error("Failed to send OTP email: %s", e)
+
+    print(f"\n==============================================")
+    print(f" [KVS SKILL NEXUS OTP] Email: {user.email}")
+    print(f" OTP CODE: {otp_code}")
+    print(f"==============================================\n")
+
+    logger.info("Password Reset OTP generated for email=%s: %s", user.email, otp_code)
+    return {"message": "OTP has been sent to your email address."}
+
+
+
+
+
+
+def verify_password_reset_otp(email, otp):
+    """Verify the 6-digit OTP code."""
+    try:
+        otp_obj = PasswordResetOTP.objects.filter(email__iexact=email, otp=otp).first()
+        if not otp_obj:
+            raise ApplicationError("Invalid OTP code. Please check and try again.", status_code=400)
+
+        from django.utils import timezone
+        import datetime
+        if timezone.now() - otp_obj.created_at > datetime.timedelta(minutes=15):
+            raise ApplicationError("OTP code has expired. Please request a new one.", status_code=400)
+
+        otp_obj.is_verified = True
+        otp_obj.save(update_fields=["is_verified"])
+        return True
+    except ApplicationError:
+        raise
+    except Exception:
+        raise ApplicationError("Invalid or expired OTP code.", status_code=400)
+
+
+def reset_password_with_otp(email=None, otp=None, token=None, new_password=None):
+    """Reset password using verified OTP or legacy token."""
+    if token:
+        user_id = verify_password_reset_token(token)
+        if not user_id:
+            raise ApplicationError("Invalid or expired reset link.", status_code=400)
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise ResourceNotFoundError("User not found.")
+    else:
+        otp_obj = PasswordResetOTP.objects.filter(email__iexact=email, otp=otp, is_verified=True).first()
+        if not otp_obj:
+            raise ApplicationError("Please verify your email OTP first before resetting your password.", status_code=400)
+
+        try:
+            user = User.objects.get(email__iexact=email)
+        except User.DoesNotExist:
+            raise ResourceNotFoundError("User not found.")
+
+        otp_obj.delete()
 
     user.set_password(new_password)
     user.save(update_fields=["password"])
     security_logger.info("Password reset for user id=%s", user.id)
     return user
+
 
 
 def change_password(user, old_password, new_password):

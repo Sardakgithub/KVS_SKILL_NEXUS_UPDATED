@@ -19,6 +19,7 @@ from apps.accounts.serializers import (
     ResetPasswordSerializer,
     UserProfileUpdateSerializer,
     UserSerializer,
+    VerifyOTPSerializer,
 )
 from apps.common.responses import APIResponse
 
@@ -180,14 +181,31 @@ class ForgotPasswordView(APIView):
     permission_classes = [AllowAny]
     throttle_scope = "password_reset"
 
-    @extend_schema(summary="Request password reset email", request=ForgotPasswordSerializer)
+    @extend_schema(summary="Request password reset OTP via email", request=ForgotPasswordSerializer)
     def post(self, request):
         serializer = ForgotPasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        services.forgot_password(serializer.validated_data["email"])
+        res_data = services.send_password_reset_otp(serializer.validated_data["email"])
         return APIResponse.success(
-            message="If an account with that email exists, a reset link has been sent."
+            data=res_data,
+            message="OTP has been sent to your email address."
         )
+
+
+@extend_schema(tags=["Authentication"])
+class VerifyOTPView(APIView):
+    permission_classes = [AllowAny]
+    throttle_scope = "password_reset"
+
+    @extend_schema(summary="Verify 6-digit email OTP", request=VerifyOTPSerializer)
+    def post(self, request):
+        serializer = VerifyOTPSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        services.verify_password_reset_otp(
+            email=serializer.validated_data["email"],
+            otp=serializer.validated_data["otp"],
+        )
+        return APIResponse.success(message="OTP verified successfully. You can now reset your password.")
 
 
 @extend_schema(tags=["Authentication"])
@@ -195,15 +213,18 @@ class ResetPasswordView(APIView):
     permission_classes = [AllowAny]
     throttle_scope = "password_reset"
 
-    @extend_schema(summary="Reset password with token", request=ResetPasswordSerializer)
+    @extend_schema(summary="Reset password with verified OTP or token", request=ResetPasswordSerializer)
     def post(self, request):
         serializer = ResetPasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        services.reset_password(
-            token=serializer.validated_data["token"],
+        services.reset_password_with_otp(
+            email=serializer.validated_data.get("email"),
+            otp=serializer.validated_data.get("otp"),
+            token=serializer.validated_data.get("token"),
             new_password=serializer.validated_data["new_password"],
         )
         return APIResponse.success(message="Password has been reset successfully.")
+
 
 
 @extend_schema(tags=["User Profile"])

@@ -91,3 +91,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_admin_user(self):
         return self.role == Roles.ADMIN
+
+
+class PasswordResetOTP(models.Model):
+    """Stores 6-digit email OTPs for password reset workflow."""
+    email = models.EmailField(db_index=True)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "password_reset_otps"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"OTP for {self.email} ({'Verified' if self.is_verified else 'Pending'})"
+

@@ -59,12 +59,13 @@ export const StudentDashboard = () => {
 
         <div style={{ display: 'flex', gap: '12px' }}>
           <Link to="/profile" className="btn-secondary" style={{ padding: '10px 18px', fontSize: '0.85rem' }}>
-            <UserCheck size={16} /> Edit LinkedIn Profile Details
+            <UserCheck size={16} /> Edit Profile
           </Link>
           <Link to="/resume" className="btn-primary" style={{ padding: '10px 18px', fontSize: '0.85rem' }}>
             <FileText size={16} /> Resume Manager
           </Link>
         </div>
+
       </div>
 
       {/* Stat Metric Cards */}

@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.Serializer):
 
     def validate_email(self, value):
         if User.objects.filter(email__iexact=value).exists():
-            raise serializers.ValidationError("A user with this email already exists.")
+            raise serializers.ValidationError("Account Already exists")
         return value.lower()
 
     def validate_password(self, value):
@@ -76,8 +76,15 @@ class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 
+class VerifyOTPSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp = serializers.CharField(min_length=6, max_length=6)
+
+
 class ResetPasswordSerializer(serializers.Serializer):
-    token = serializers.CharField()
+    email = serializers.EmailField(required=False)
+    otp = serializers.CharField(required=False, min_length=6, max_length=6)
+    token = serializers.CharField(required=False)
     new_password = serializers.CharField(write_only=True, min_length=8)
     new_password_confirm = serializers.CharField(write_only=True, min_length=8)
 
@@ -90,8 +97,13 @@ class ResetPasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 {"new_password_confirm": "Passwords do not match."}
             )
+        if not data.get("token") and not (data.get("email") and data.get("otp")):
+            raise serializers.ValidationError(
+                "Either token or email + otp must be provided."
+            )
         return data
 
 
 class EmailVerificationSerializer(serializers.Serializer):
     token = serializers.CharField()
+

@@ -77,3 +77,13 @@
 {"timestamp": "2026-09-10T14:43:27.840965+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
 {"timestamp": "2026-09-10T14:43:27.849830+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 81}
 {"timestamp": "2026-09-10T14:43:28.977216+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 60}
+{"timestamp": "2026-09-12T06:08:20.100478+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:08:21.102615+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:08:22.176412+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:08:22.187128+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 88}
+{"timestamp": "2026-09-12T06:08:23.206325+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:13:59.044874+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=2", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:13:59.612611+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:14:00.171963+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
+{"timestamp": "2026-09-12T06:14:00.176639+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged out (token blacklisted)", "module": "services", "line": 88}
+{"timestamp": "2026-09-12T06:14:00.755262+00:00", "level": "INFO", "logger": "kvs.security", "message": "User logged in: id=1", "module": "services", "line": 67}
