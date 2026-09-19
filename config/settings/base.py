@@ -31,7 +31,11 @@ SECRET_KEY = config(
     default="django-insecure-local-dev-only-CHANGE-ME-6f2a9e1c4b7d",
 )
 DEBUG = config("DEBUG", default=False, cast=bool)
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="localhost,127.0.0.1,.onrender.com",
+    cast=Csv(),
+)
 
 # --------------------------------------------------------------------------
 # Applications

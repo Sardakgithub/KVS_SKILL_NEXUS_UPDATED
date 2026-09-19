@@ -30,24 +30,30 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # --------------------------------------------------------------------------
 # Cross-Origin (CORS) & CSRF Configuration
 # --------------------------------------------------------------------------
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="localhost,127.0.0.1,.onrender.com",
+    cast=Csv(),
+)
+
 FRONTEND_URL = config(
     "FRONTEND_URL",
     default="https://kvs-skill-nexus-frontend.onrender.com",
 )
 BACKEND_URL = config(
     "BACKEND_URL",
-    default="https://kvs-backend-os33.onrender.com",
+    default="https://kvs-skill-nexus-updated.onrender.com",
 )
 
 CORS_ALLOWED_ORIGINS = config(
     "CORS_ALLOWED_ORIGINS",
-    default=FRONTEND_URL,
+    default=f"{FRONTEND_URL},https://kvs-frontend-0adg.onrender.com",
     cast=Csv(),
 )
 
 CSRF_TRUSTED_ORIGINS = config(
     "CSRF_TRUSTED_ORIGINS",
-    default=f"{FRONTEND_URL},{BACKEND_URL}",
+    default=f"{FRONTEND_URL},{BACKEND_URL},https://kvs-backend-os33.onrender.com,https://kvs-skill-nexus-updated.onrender.com,https://kvs-frontend-0adg.onrender.com",
     cast=Csv(),
 )
 
