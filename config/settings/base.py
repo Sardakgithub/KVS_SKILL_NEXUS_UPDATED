@@ -249,6 +249,7 @@ SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": r"/api/v1",
     "SORT_OPERATIONS": True,
     "SWAGGER_UI_SETTINGS": {"persistAuthorization": True},
+    "DISABLE_ERRORS_AND_WARNINGS": True,
 }
 
 # --------------------------------------------------------------------------
