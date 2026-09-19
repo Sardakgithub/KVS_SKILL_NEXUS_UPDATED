@@ -10,7 +10,8 @@ import os
 
 from decouple import config
 
-DJANGO_ENV = config("DJANGO_ENV", default="development")
+default_env = "production" if (os.environ.get("RENDER") or os.environ.get("RENDER_SERVICE_ID")) else "development"
+DJANGO_ENV = config("DJANGO_ENV", default=default_env)
 
 if DJANGO_ENV == "production":
     from .production import *  # noqa: F401,F403

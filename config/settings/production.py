@@ -81,5 +81,4 @@ if SENTRY_DSN:
         environment="production",
     )
 
-# Static assets served via WhiteNoise; MIDDLEWARE order matters.
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")  # noqa: F405
+# Static assets served via WhiteNoise (configured in base.py MIDDLEWARE)
