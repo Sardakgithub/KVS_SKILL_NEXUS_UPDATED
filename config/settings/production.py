@@ -30,11 +30,12 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # --------------------------------------------------------------------------
 # Cross-Origin (CORS) & CSRF Configuration
 # --------------------------------------------------------------------------
-ALLOWED_HOSTS = config(
+_raw_hosts = config(
     "ALLOWED_HOSTS",
     default="localhost,127.0.0.1,.onrender.com",
     cast=Csv(),
 )
+ALLOWED_HOSTS = list(set([h.strip() for h in _raw_hosts if h.strip()] + [".onrender.com", "kvs-skill-nexus-updated.onrender.com"]))
 
 FRONTEND_URL = config(
     "FRONTEND_URL",

@@ -31,11 +31,12 @@ SECRET_KEY = config(
     default="django-insecure-local-dev-only-CHANGE-ME-6f2a9e1c4b7d",
 )
 DEBUG = config("DEBUG", default=False, cast=bool)
-ALLOWED_HOSTS = config(
+_raw_hosts = config(
     "ALLOWED_HOSTS",
     default="localhost,127.0.0.1,.onrender.com",
     cast=Csv(),
 )
+ALLOWED_HOSTS = list(set([h.strip() for h in _raw_hosts if h.strip()] + [".onrender.com"]))
 
 # --------------------------------------------------------------------------
 # Applications
