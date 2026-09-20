@@ -1,6 +1,6 @@
 """Views for jobs & internships module."""
 from drf_spectacular.utils import extend_schema
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 
 from apps.common.permissions import IsStudent
@@ -17,7 +17,7 @@ from apps.students.services import get_or_create_student_profile
 
 @extend_schema(tags=["Jobs & Internships"])
 class JobListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Browse active job postings")
     def get(self, request):
@@ -37,7 +37,7 @@ class JobListView(APIView):
 
 @extend_schema(tags=["Jobs & Internships"])
 class InternshipListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Browse active internship postings")
     def get(self, request):

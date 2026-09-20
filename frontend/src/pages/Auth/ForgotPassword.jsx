@@ -35,27 +35,41 @@ export const ForgotPassword = () => {
     }
   }, [timer])
 
+  const extractErrorMessage = (err, fallback) => {
+    if (typeof err === 'string') return err
+    if (err?.message) return err.message
+    if (err?.detail) return err.detail
+    if (err?.errors) {
+      if (typeof err.errors === 'string') return err.errors
+      if (typeof err.errors === 'object') {
+        const msgs = Object.values(err.errors).flat()
+        if (msgs.length > 0) return msgs.join(' ')
+      }
+    }
+    return fallback
+  }
+
   const handleSendOtp = async (e) => {
     e.preventDefault()
     setError('')
     setMessage('')
     setLoading(true)
 
+    const cleanEmail = email.trim().toLowerCase()
+
     try {
-      const res = await api.post('/auth/forgot-password/', { email })
+      const res = await api.post('/auth/forgot-password/', { email: cleanEmail })
       if (res.success) {
         setOtpSent(true)
         setTimer(60) // Start 1-minute countdown timer
         setMessage(res.message || 'OTP has been sent to your email address.')
       }
     } catch (err) {
-      setError(err.message || err.errors || 'Failed to send OTP. Please check your email.')
+      setError(extractErrorMessage(err, 'Failed to send OTP. Please check your email.'))
     } finally {
       setLoading(false)
     }
   }
-
-
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault()
@@ -63,14 +77,17 @@ export const ForgotPassword = () => {
     setMessage('')
     setLoading(true)
 
+    const cleanEmail = email.trim().toLowerCase()
+    const cleanOtp = otp.trim()
+
     try {
-      const res = await api.post('/auth/verify-otp/', { email, otp })
+      const res = await api.post('/auth/verify-otp/', { email: cleanEmail, otp: cleanOtp })
       if (res.success) {
         setOtpVerified(true)
         setMessage('OTP verified successfully! Please enter your new password below.')
       }
     } catch (err) {
-      setError(err.message || 'Invalid or expired OTP. Please try again.')
+      setError(extractErrorMessage(err, 'Invalid or expired OTP. Please try again.'))
     } finally {
       setLoading(false)
     }
@@ -88,10 +105,13 @@ export const ForgotPassword = () => {
 
     setLoading(true)
 
+    const cleanEmail = email.trim().toLowerCase()
+    const cleanOtp = otp.trim()
+
     try {
       const res = await api.post('/auth/reset-password/', {
-        email,
-        otp,
+        email: cleanEmail,
+        otp: cleanOtp,
         new_password: newPassword,
         new_password_confirm: newPasswordConfirm,
       })
@@ -100,7 +120,7 @@ export const ForgotPassword = () => {
         setTimeout(() => navigate('/login'), 2000)
       }
     } catch (err) {
-      setError(err.message || 'Failed to reset password.')
+      setError(extractErrorMessage(err, 'Failed to reset password.'))
     } finally {
       setLoading(false)
     }

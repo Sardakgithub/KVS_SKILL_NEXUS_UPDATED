@@ -40,8 +40,8 @@ export const Register = () => {
     try {
       const res = await register(formData)
       if (res.success) {
-        setSuccessMsg('Registration successful! Redirecting to login...')
-        setTimeout(() => navigate('/login'), 2000)
+        setSuccessMsg('Registration successful! Logging you in...')
+        setTimeout(() => navigate('/dashboard'), 1200)
       }
     } catch (err) {
       let msg = 'Registration failed'

@@ -14,6 +14,24 @@ if SECRET_KEY.startswith("django-insecure-local-dev-only"):
     )
 
 # --------------------------------------------------------------------------
+# Database Persistence Check for Production / Render
+# --------------------------------------------------------------------------
+import logging
+logger = logging.getLogger("kvs")
+
+DATABASE_URL = config("DATABASE_URL", default=None)
+if not DATABASE_URL:
+    db_engine = DATABASES.get("default", {}).get("ENGINE", "")
+    if "sqlite" in db_engine:
+        msg = (
+            "CRITICAL WARNING: Production is running with an ephemeral SQLite database! "
+            "All registered users and data will be WIPED on Render service restart or sleep. "
+            "Please add a PostgreSQL database in Render dashboard and bind DATABASE_URL."
+        )
+        logger.critical(msg)
+        print(f"\n[PRODUCTION DB PERSISTENCE WARNING]\n{msg}\n")
+
+# --------------------------------------------------------------------------
 # Security hardening
 # --------------------------------------------------------------------------
 SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)

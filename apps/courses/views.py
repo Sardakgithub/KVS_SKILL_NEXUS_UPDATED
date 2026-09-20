@@ -1,6 +1,6 @@
 """Views for course module."""
 from drf_spectacular.utils import extend_schema
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 
 from apps.common.permissions import IsStudent
@@ -17,7 +17,7 @@ from apps.students.services import get_or_create_student_profile
 
 @extend_schema(tags=["Courses"])
 class CourseCategoryListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="List course categories")
     def get(self, request):
@@ -27,7 +27,7 @@ class CourseCategoryListView(APIView):
 
 @extend_schema(tags=["Courses"])
 class CourseListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Browse published courses")
     def get(self, request):
@@ -51,7 +51,7 @@ class CourseListView(APIView):
 
 @extend_schema(tags=["Courses"])
 class CourseDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Get course details with resources")
     def get(self, request, course_id):

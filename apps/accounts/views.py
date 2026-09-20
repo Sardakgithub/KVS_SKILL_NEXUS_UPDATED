@@ -84,10 +84,28 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = services.register_user(serializer.validated_data)
-        return APIResponse.created(
-            data=UserSerializer(user).data,
-            message="Registration successful. Please check your email to verify your account.",
+        
+        # Issue JWT tokens for immediate login
+        tokens = services.login_user(
+            email=serializer.validated_data["email"],
+            password=serializer.validated_data["password"],
         )
+        
+        user_data = UserSerializer(user).data
+        response_data = {
+            "user": user_data,
+            "access": tokens.get("access"),
+            "refresh": tokens.get("refresh"),
+        }
+        
+        response = APIResponse.created(
+            data=response_data,
+            message="Registration successful.",
+        )
+        
+        access_token = tokens.get("access")
+        refresh_token = tokens.get("refresh")
+        return set_auth_cookies(response, access_token, refresh_token, user.role)
 
 
 @extend_schema(tags=["Authentication"])

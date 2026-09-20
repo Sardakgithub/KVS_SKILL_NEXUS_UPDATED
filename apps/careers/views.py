@@ -1,6 +1,6 @@
 """Views for careers module."""
 from drf_spectacular.utils import extend_schema
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 
 from apps.common.permissions import IsStudent, ReadOnlyOrIsAdmin
@@ -18,7 +18,7 @@ from apps.students.services import get_or_create_student_profile
 
 @extend_schema(tags=["Careers"])
 class CareerCategoryListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="List all career categories")
     def get(self, request):
@@ -28,7 +28,7 @@ class CareerCategoryListView(APIView):
 
 @extend_schema(tags=["Careers"])
 class SkillListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="List all skills")
     def get(self, request):
@@ -38,7 +38,7 @@ class SkillListView(APIView):
 
 @extend_schema(tags=["Careers"])
 class CareerPathListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Browse career paths")
     def get(self, request):
@@ -63,7 +63,7 @@ class CareerPathListView(APIView):
 
 @extend_schema(tags=["Careers"])
 class CareerPathDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @extend_schema(summary="Get career path detail with roadmap")
     def get(self, request, career_id):

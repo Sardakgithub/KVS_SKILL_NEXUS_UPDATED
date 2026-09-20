@@ -75,10 +75,19 @@ class ChangePasswordSerializer(serializers.Serializer):
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
+    def validate_email(self, value):
+        return value.strip().lower()
+
 
 class VerifyOTPSerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp = serializers.CharField(min_length=6, max_length=6)
+
+    def validate_email(self, value):
+        return value.strip().lower()
+
+    def validate_otp(self, value):
+        return str(value).strip()
 
 
 class ResetPasswordSerializer(serializers.Serializer):
@@ -87,6 +96,16 @@ class ResetPasswordSerializer(serializers.Serializer):
     token = serializers.CharField(required=False)
     new_password = serializers.CharField(write_only=True, min_length=8)
     new_password_confirm = serializers.CharField(write_only=True, min_length=8)
+
+    def validate_email(self, value):
+        if value:
+            return value.strip().lower()
+        return value
+
+    def validate_otp(self, value):
+        if value:
+            return str(value).strip()
+        return value
 
     def validate_new_password(self, value):
         validate_password(value)
